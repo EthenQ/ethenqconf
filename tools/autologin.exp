@@ -1,0 +1,12 @@
+#!/usr/bin/expect
+set user root
+set ipaddress [lindex $argv 0]
+set passwd iampassword
+set timeout 30
+
+spawn ssh $user@$ipaddress
+expect {
+    "*password:" { send "$passwd\r" }
+    "yes/no" { send "yes\r";exp_continue }
+}
+interact
